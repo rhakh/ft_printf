@@ -6,7 +6,7 @@
 /*   By: rhakh <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 20:56:40 by rhakh             #+#    #+#             */
-/*   Updated: 2017/02/23 20:56:43 by rhakh            ###   ########.fr       */
+/*   Updated: 2017/03/31 23:32:45 by rhakh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ int			realloc_strp(t_strp *t)
 	return (1);
 }
 
-void		print_strp(t_strp *res)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < res->i)
-	{
-		ft_putchar((res->str)[i]);
-		i++;
-	}
-}
-
 int			ft_printf(const char *format, ...)
 {
 	t_spec	*spec;
@@ -50,7 +38,7 @@ int			ft_printf(const char *format, ...)
 		return (-1);
 	va_start(ap, format);
 	res_str = get_result((char *)format, spec, &ap, res_str);
-	print_strp(res_str);
+	write(1, res_str->str, res_str->i);
 	res_len = (int)res_str->i;
 	del_strp(&res_str);
 	del_spec(spec);

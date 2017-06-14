@@ -36,7 +36,7 @@ void		del_strp(t_strp **t)
 int			put_char_to_strp(t_strp *res, char c)
 {
 	if (res->i + 1 >= res->last_size)
-		while (realloc_strp(res) == 0)
+		while ((realloc_strp(res) == 0) || (res->last_size < res->i + 1))
 			;
 	*(res->str + res->i) = c;
 	res->i++;
@@ -46,7 +46,7 @@ int			put_char_to_strp(t_strp *res, char c)
 int			put_strp_to_strp(t_strp *dst, t_strp *src)
 {
 	if (dst->i + src->i >= dst->last_size)
-		while (realloc_strp(dst) == 0)
+		while ((realloc_strp(dst) == 0) || (dst->last_size < src->i))
 			;
 	ft_memcpy(dst->str + dst->i, src->str, (size_t)src->i);
 	dst->i += src->i;
@@ -56,7 +56,7 @@ int			put_strp_to_strp(t_strp *dst, t_strp *src)
 int			put_str_to_strp(t_strp *res, char *str)
 {
 	if (res->i + (int)ft_strlen(str) >= res->last_size)
-		while (realloc_strp(res) == 0)
+		while ((realloc_strp(res) == 0) || (res->last_size < ft_strlen(str)))
 			;
 	if (str == NULL)
 		put_str_to_strp(res, "(null)");
